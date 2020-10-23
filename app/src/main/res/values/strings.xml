@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">RemiderTony</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="xemayComponent">
+        <item>None</item>
+        <item>nhot</item>
+        <item>banh xe</item>
+        <item>vo xe</item>
+    </string-array>
+
+    <string-array name="mayLanhComponent">
+        <item>None</item>
+        <item>loc khi</item>
+        <item>banh xe</item>
+        <item>vo xe</item>
+    </string-array>
+
+    <string-array name="tuLanhComponent">
+        <item>None</item>
+        <item>gas</item>
+        <item>banh xe</item>
+        <item>vo xe</item>
+    </string-array>
+
+    <string-array name="objectKind">
+        <item>None</item>
+        <item>Xe may</item>
+        <item>may lanh</item>
+        <item>may giac</item>
+    </string-array>
+
+    <string-array name="status">
+        <item>None</item>
+        <item>Moi mua</item>
+        <item>Moi bao tri</item>
+    </string-array>
+
+    <string-array name="noneArray">
+        <item>None</item>
+    </string-array>
+</resources>
