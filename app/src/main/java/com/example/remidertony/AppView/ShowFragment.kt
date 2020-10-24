@@ -1,8 +1,7 @@
-package com.example.remidertony
+package com.example.remidertony.AppView
 
 import androidx.fragment.app.Fragment
 
 interface ShowFragment {
     fun showFragment(fragment:Fragment)
-    fun passData(objectData: ObjectData)
 }

@@ -1,11 +1,12 @@
-package com.example.remidertony
+package com.example.remidertony.AppView
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_sign_up.*
+import com.example.remidertony.BaseActivity
+import com.example.remidertony.R
 import kotlinx.android.synthetic.main.fragment_sign_up.view.*
 
 class FragmentSignUp : Fragment() {

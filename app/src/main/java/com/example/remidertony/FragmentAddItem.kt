@@ -1,18 +1,17 @@
 package com.example.remidertony
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.example.remidertony.AppView.ShowFragment
 import kotlinx.android.synthetic.main.fragment_add_item.*
 import kotlinx.android.synthetic.main.fragment_add_item.view.*
-import java.lang.reflect.Array
 
 class FragmentAddItem : Fragment() {
-    lateinit var objectData: ObjectData
+
     private lateinit var showFragment : ShowFragment
     private lateinit var listObject: ListObject
     var name : String = ""
@@ -131,14 +130,7 @@ class FragmentAddItem : Fragment() {
             }
         }
 
-        view.bt_save.setOnClickListener {
-            objectData = ObjectData(et_object_name.text.toString(),statusOB,kind,component)
-            statusOB = ""
-            kind = ""
-            component = ""
-            listObject.putObject(objectData)
-            showFragment.showFragment(FragmentFullItem())
-        }
+
 
         view.bt_cancel.setOnClickListener {
             showFragment.showFragment(FragmentFullItem())

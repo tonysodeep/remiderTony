@@ -1,4 +1,4 @@
-package com.example.remidertony
+package com.example.remidertony.AppView
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_login.*
+import com.example.remidertony.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 
 class FragmentLogIn : Fragment() {
@@ -29,7 +29,7 @@ class FragmentLogIn : Fragment() {
             showFragment.showFragment(FragmentSignUp())
         }
         view.bt_login.setOnClickListener {
-            val intent = Intent(activity,MainActivity::class.java)
+            val intent = Intent(activity, MainActivity::class.java)
             startActivity(intent)
             (activity as RegisterActivity).finish()
         }

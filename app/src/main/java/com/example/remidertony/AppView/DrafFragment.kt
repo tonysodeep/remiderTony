@@ -1,4 +1,4 @@
-package com.example.remidertony
+package com.example.remidertony.AppView
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -6,14 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
 import android.widget.DatePicker
 import android.widget.TimePicker
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.draf_fragment.*
+import com.example.remidertony.MainActivity
+import com.example.remidertony.R
 import kotlinx.android.synthetic.main.draf_fragment.view.*
-import kotlinx.android.synthetic.main.fragment_sign_up.view.*
-import java.sql.Time
 import java.util.*
 
 class DrafFragment : Fragment(),DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener {
