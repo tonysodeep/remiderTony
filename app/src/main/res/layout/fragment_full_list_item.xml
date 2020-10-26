@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_colorNormal="#FFF"
-            app:fab_title="Another one the right" />
+            app:fab_title="Add item" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/draft"

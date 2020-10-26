@@ -29,6 +29,7 @@ class FragmentFullItem : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        showFragment = activity as BaseActivity
         viewLayout = inflater!!.inflate(R.layout.fragment_full_list_item, container, false)
         //floating button
 

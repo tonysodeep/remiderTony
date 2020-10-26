@@ -1,128 +1,64 @@
 package com.example.remidertony
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.remidertony.AppView.ShowFragment
+import com.example.remidertony.Database.ObjectData
 import kotlinx.android.synthetic.main.fragment_add_item.*
 import kotlinx.android.synthetic.main.fragment_add_item.view.*
 
 class FragmentAddItem : Fragment() {
 
-    private lateinit var showFragment : ShowFragment
+    private lateinit var showFragment: ShowFragment
     private lateinit var listObject: ListObject
-    var name : String = ""
-    var kind : String = ""
-    var component : String = ""
-    var statusOB : String = ""
+    lateinit var objectData: ObjectData
+    var name: String = ""
+    var kind: String = ""
+    var component: String = ""
+    var statusOB: String = ""
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater!!.inflate(R.layout.fragment_add_item, container, false)
-        //arr => status, kind, component, none
-        val kinds = resources.getStringArray(R.array.objectKind)
-        val componentXeMay = resources.getStringArray(R.array.xemayComponent)
-        val componentTuLanh = resources.getStringArray(R.array.tuLanhComponent)
-        val componentMayLanh = resources.getStringArray(R.array.mayLanhComponent)
-        val status = resources.getStringArray(R.array.status)
-        val none = resources.getStringArray(R.array.noneArray)
-
-        //spinner => status - kind - component
-        val spinnerStatus = view.findViewById<Spinner>(R.id.spStatus)
-        val spinnerKind = view.findViewById<Spinner>(R.id.spKind)
-        val spinnerComponent = view.findViewById<Spinner>(R.id.spComponent)
-
+        val spinnerView: View = inflater!!.inflate(R.layout.fragment_add_item, container, false)
         showFragment = activity as BaseActivity
         listObject = activity as MainActivity
 
-        val arrayAdapterStatus = ArrayAdapter(
-            activity as MainActivity, android.R.layout.simple_spinner_item, status
-        )
-        spinnerStatus.adapter = arrayAdapterStatus
+        //kind spinner
+        val kinds = resources.getStringArray(R.array.objectKind)
+        val arrayAdapterKind =
+            ArrayAdapter(activity as MainActivity, android.R.layout.simple_spinner_item, kinds)
+        spinnerView.spKind.adapter = arrayAdapterKind
+        //base case
+        val arrayNone = resources.getStringArray(R.array.noneArray)
+        val arrayAdapterComponent =
+            ArrayAdapter(activity as MainActivity, android.R.layout.simple_spinner_item, arrayNone)
+        spinnerView.spComponent.adapter = arrayAdapterComponent
 
-        val arrayAdapterKind = ArrayAdapter(
-            activity as MainActivity, android.R.layout.simple_spinner_item,none
-        )
-        spinnerKind.adapter = arrayAdapterKind
-
-        val arrayAdapterComponent = ArrayAdapter(
-            activity as MainActivity, android.R.layout.simple_spinner_item,none
-        )
-        spinnerComponent.adapter = arrayAdapterComponent
-
-
-        spinnerStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinnerView.spStatus.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long
             ) {
-                if(position == 1){
-                    val arrayAdapterKinds = ArrayAdapter(
-                        activity as MainActivity, android.R.layout.simple_spinner_item,
-                        kinds
-                    )
-                    spinnerKind.adapter = arrayAdapterKinds
-
-                    spinnerComponent.visibility = View.GONE
+                if (parent?.getItemAtPosition(position).toString() == "Moi mua") {
+                    spinnerView.spComponent.visibility = View.INVISIBLE
+                    val arrayAdapterComponent =
+                        ArrayAdapter(activity as MainActivity, android.R.layout.simple_spinner_item, arrayNone)
+                    spinnerView.spComponent.adapter = arrayAdapterComponent
                 }
-                if(position == 2){
-                    val arrayAdapterKinds = ArrayAdapter(
-                        activity as MainActivity, android.R.layout.simple_spinner_item,
-                        kinds
-                    )
-                    statusOB =  status[position]
-                    spinnerKind.adapter = arrayAdapterKinds
-                    spinnerComponent.visibility = View.VISIBLE
-                }
-            }
+                if (parent?.getItemAtPosition(position).toString() == "Moi bao tri")
+                    spinnerView.spComponent.visibility = View.VISIBLE
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {
 
-            }
-        }
-
-        spinnerKind.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if(position == 1){
-                    val arrayAdapterComponents = ArrayAdapter(
-                        activity as MainActivity, android.R.layout.simple_spinner_item,
-                        componentXeMay
-                    )
-                    kind = kinds[position]
-                    component = componentXeMay[position]
-                    spinnerComponent.adapter = arrayAdapterComponents
-                }
-                if(position == 2){
-                    val arrayAdapterComponents = ArrayAdapter(
-                        activity as MainActivity, android.R.layout.simple_spinner_item,
-                        componentMayLanh
-                    )
-                    kind = kinds[position]
-                    component = componentMayLanh[position]
-                    spinnerComponent.adapter = arrayAdapterComponents
-
-                }
-                if(position == 3){
-                    val arrayAdapterComponents = ArrayAdapter(
-                        activity as MainActivity, android.R.layout.simple_spinner_item,
-                        componentTuLanh
-                    )
-                    kind = kinds[position]
-                    component = componentTuLanh[position]
-                    spinnerComponent.adapter = arrayAdapterComponents
-                }
+                statusOB = parent?.getItemAtPosition(position).toString()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -131,11 +67,95 @@ class FragmentAddItem : Fragment() {
         }
 
 
+        val xemayCompo = resources.getStringArray(R.array.xemayComponent)
+        val tulanhCompo = resources.getStringArray(R.array.tuLanhComponent)
+        val maylanhCompo = resources.getStringArray(R.array.mayLanhComponent)
+        val maygiacCompo = resources.getStringArray(R.array.mayGiacComponent)
 
-        view.bt_cancel.setOnClickListener {
-            showFragment.showFragment(FragmentFullItem())
+        spinnerView.spKind.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                when (parent?.getItemAtPosition(position).toString()) {
+                    "Xe may" -> {
+                        val arrayAdapterComponent =
+                            ArrayAdapter(
+                                activity as MainActivity,
+                                android.R.layout.simple_spinner_item,
+                                xemayCompo
+                            )
+                        spinnerView.spComponent.adapter = arrayAdapterComponent
+                        kind = parent?.getItemAtPosition(position).toString()
+
+                    }
+                    "Tu lanh" -> {
+                        val arrayAdapterComponent =
+                            ArrayAdapter(
+                                activity as MainActivity,
+                                android.R.layout.simple_spinner_item,
+                                tulanhCompo
+                            )
+                        spinnerView.spComponent.adapter = arrayAdapterComponent
+                        kind = parent?.getItemAtPosition(position).toString()
+                    }
+                    "May giac" -> {
+                        val arrayAdapterComponent =
+                            ArrayAdapter(
+                                activity as MainActivity,
+                                android.R.layout.simple_spinner_item,
+                                maygiacCompo
+                            )
+                        spinnerView.spComponent.adapter = arrayAdapterComponent
+                        kind = parent?.getItemAtPosition(position).toString()
+                    }
+                    "Manh lanh" -> {
+                        val arrayAdapterComponent =
+                            ArrayAdapter(
+                                activity as MainActivity,
+                                android.R.layout.simple_spinner_item,
+                                maylanhCompo
+                            )
+                        spinnerView.spComponent.adapter = arrayAdapterComponent
+                        kind = parent?.getItemAtPosition(position).toString()
+                    }
+                    else->{
+                        kind = parent?.getItemAtPosition(0).toString()
+                    }
+                }
+
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
         }
-        return view
+        spinnerView.spComponent.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                component = parent?.getItemAtPosition(position).toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+        }
+
+        spinnerView.bt_cancel.setOnClickListener {
+           val arrayList = ArrayList<ObjectData>()
+            if (kind == "Xe may"){
+                for(i in 1 until xemayCompo.size){
+                    arrayList.add(ObjectData(statusOB,et_object_name.text.toString(),kind,xemayCompo[i]))
+                }
+            }
+            Log.d("AAA",arrayList.toString())
+        }
+        return spinnerView
     }
 
 }
